@@ -1,38 +1,31 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type MarketItemDocument = HydratedDocument<MarketItem>;
-
-export enum EMatchStatus {
-  PENDING = 'pending',
-  STARTED = 'started',
-  FINISHED = 'end',
-}
-
 @Schema({ timestamps: true })
 export class MarketItem {
   
   @Prop()
-  player1: string
+  name: string
 
   @Prop()
-  player2: string
-
-  //{ enum: [EMatchStatus.FINISHED, EMatchStatus.STARTED, EMatchStatus.PENDING] }
-  @Prop()
-  status: EMatchStatus
+  sellMin: number
 
   @Prop()
-  winner?: string
+  sellLots: number
 
   @Prop()
-  winnerRatingChange?: number
+  buyMax: number
 
   @Prop()
-  socketRoomId: string
+  buyLots: number
 
-  @Prop({ default: false })
-  isPrivate: boolean
+  @Prop()
+  profit: number
+
+  @Prop()
+  ROI: number
+  
 }
 
+export type MarketItemDocument = HydratedDocument<MarketItem>;
 export const MatchSchema = SchemaFactory.createForClass(MarketItem);
