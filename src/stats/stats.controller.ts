@@ -10,8 +10,10 @@ export class StatsController {
 
     @HttpCode(HttpStatus.OK)
     @Post('/')
-    async connectedToMatch(@Request() req, @Body() body: MarketItem) {
-        console.log(body)
-        return this.marketItemsService.create(body);
+    async connectedToMatch(@Request() req, @Body() body: any) {
+        return this.marketItemsService.create({
+            ...body,
+            collectedAt: new Date(body.collectedAt)
+        });
     }
 }

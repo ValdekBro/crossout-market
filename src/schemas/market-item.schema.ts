@@ -1,12 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-@Schema({ timestamps: true })
+@Schema({ 
+  timestamps: false, 
+  collection: 'market_items',
+  timeseries: {
+    timeField: 'collectedAt',
+    metaField: 'metadata',
+    granularity: 'seconds'
+  }
+})
 export class MarketItem {
-  
-  @Prop()
-  name: string
-
   @Prop()
   sellMin: number
 
@@ -25,6 +29,13 @@ export class MarketItem {
   @Prop()
   ROI: number
   
+  @Prop()
+  collectedAt: Date
+  
+  @Prop()
+  metadata: {
+    name: string
+  }
 }
 
 export type MarketItemDocument = HydratedDocument<MarketItem>;
