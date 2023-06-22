@@ -1,6 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
+@Schema()
+export class MarketItemMetadata {
+  @Prop({ required: true })
+  name: string
+}
+const MarketItemMetadataSchema = SchemaFactory.createForClass(MarketItemMetadata)
+
 @Schema({ 
   timestamps: false, 
   collection: 'market_items',
@@ -11,32 +18,30 @@ import { HydratedDocument } from 'mongoose';
   }
 })
 export class MarketItem {
-  @Prop()
+  @Prop({ required: true })
   sellMin: number
 
-  @Prop()
+  @Prop({ required: true })
   sellLots: number
 
-  @Prop()
+  @Prop({ required: true })
   buyMax: number
 
-  @Prop()
+  @Prop({ required: true })
   buyLots: number
 
-  @Prop()
+  @Prop({ required: true })
   profit: number
 
-  @Prop()
+  @Prop({ required: true })
   ROI: number
   
-  @Prop()
+  @Prop({ required: true })
   collectedAt: Date
   
-  @Prop()
-  metadata: {
-    name: string
-  }
+  @Prop({ required: true, type: MarketItemMetadataSchema })
+  metadata: MarketItemMetadata
 }
 
 export type MarketItemDocument = HydratedDocument<MarketItem>;
-export const MatchSchema = SchemaFactory.createForClass(MarketItem);
+export const MarketItemSchema = SchemaFactory.createForClass(MarketItem);
