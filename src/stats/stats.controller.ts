@@ -11,8 +11,17 @@ export class StatsController {
     @HttpCode(HttpStatus.OK)
     @Post('/')
     async connectedToMatch(@Request() req, @Body() body: any) {
+        console.log(body)
         return this.marketItemsService.create({
-            ...body,
+            metadata: {
+                name: body.name
+            },
+            sellMin: body.sellMin,
+            buyMax: body.buyMax,
+            sellLots: body.sellLots,
+            buyLots: body.buyLots,
+            profit: body.profit,
+            ROI: body.ROI,
             collectedAt: new Date(body.collectedAt)
         });
     }
